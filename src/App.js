@@ -44,6 +44,18 @@ export default function App() {
     }
   }
 
+  useEffect(() => {
+    if(typeof window.ethereum !== 'undefined') {
+      window.ethereum.on("accountsChanged", (accounts) => {
+        if(accounts.length > 0) {
+          setCurrentAccount("");
+        } else {
+          setCurrentAccount(accounts[0]);
+        }
+      });
+    }
+  }, [])
+
   // emitされたイベントに反応する
   useEffect(() => {
     let wavePortalContract;
